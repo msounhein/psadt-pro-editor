@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String?
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  packages  Package[]
+  templates Template[]
+}
+
+model Template {
+  id                 String    @id @default(uuid())
+  name               String
+  description        String?
+  packageType        String
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  userId             String
+  isPublic           Boolean   @default(false)
+  isDefault          Boolean   @default(false)
+  type               String    @default("Custom")   // "Default" or "Custom"
+  metadata           String?
+  version            String?
+  storagePath        String?
+  extractionStatus   String?   @default("pending")  // pending, extracting, complete, failed
+  extractionPath     String?
+  lastExtractionDate DateTime?
+  packages           Package[]
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Package {
+  id          String             @id @default(uuid())
+  name        String
+  version     String?
+  templateId  String?
+  userId      String
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  packageData String?
+  status      String             @default("draft")
+  filePath    String?
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  template    Template?          @relation(fields: [templateId], references: [id])
+  statistics  PackageStatistics?
+}
+
+model PackageStatistics {
+  id                String    @id @default(uuid())
+  packageId         String    @unique
+  totalDownloads    Int       @default(0)
+  successfulDeploys Int       @default(0)
+  failedDeploys     Int       @default(0)
+  lastDeployed      DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  deploymentData    String?
+  package           Package   @relation(fields: [packageId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+}

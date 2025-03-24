@@ -1,0 +1,33 @@
+{
+  "serverConfig": {
+    "command": "cmd.exe",
+    "args": [
+      "/c"
+    ]
+  },
+  "storagePaths": {
+    "templates": "./storage/templates",
+    "packages": "./storage/packages",
+    "uploads": "./uploads"
+  },
+  "mcpServers": {
+    "desktopCommander": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\msoun\\OneDrive\\Documents\\AI\\MCP\\ClaudeComputerCommander\\dist\\index.js",
+        "--port=3999"
+      ]
+    },
+    "mcp-server-qdrant": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@smithery/cli@latest",
+        "run",
+        "mcp-server-qdrant",
+        "--config",
+        "{\"qdrantUrl\":\"https://690453a8-203d-4a94-8f18-5572b39a5261.us-east-1-0.aws.cloud.qdrant.io:6333\",\"qdrantApiKey\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.lYCLdBtLFzh5oXKwooj0gf8J1qaKxrPwTblEYFxMkWc\",\"collectionName\":\"claude_qdrant\",\"fastembedModelName\":\"sentence-transformers/all-MiniLM-L6-v2\",\"qdrantLocalPath\":\"\"}"
+      ]
+    }
+  }
+}

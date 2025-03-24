@@ -1,0 +1,847 @@
+{
+  "commands": [
+    {
+      "id": 1,
+      "command_name": "Set-RegistryKey",
+      "version": 3,
+      "syntax": "Set-RegistryKey [-Key] <String> [[-Name] <String>] [[-Value] <Object>] [-Type <String>] [-SID <String>] [-ContinueOnError <Boolean>]",
+      "description": "Sets a registry key value or creates a new registry key.",
+      "category": "Registry"
+    },
+    {
+      "id": 2,
+      "command_name": "Description",
+      "version": 3,
+      "syntax": "Remove-RegistryKey [-Key] <String> [[-Name] <String>] [-SID <String>] [-ContinueOnError <Boolean>]",
+      "description": "Removes a registry key or value.",
+      "category": "General"
+    },
+    {
+      "id": 3,
+      "command_name": "Syntax",
+      "version": 3,
+      "syntax": "Remove-RegistryKey [-Key] <String> [[-Name] <String>] [-SID <String>] [-ContinueOnError <Boolean>]",
+      "description": "",
+      "category": "General"
+    },
+    {
+      "id": 4,
+      "command_name": "Parameters",
+      "version": 3,
+      "syntax": "",
+      "description": "",
+      "category": "General"
+    },
+    {
+      "id": 5,
+      "command_name": "Example",
+      "version": 3,
+      "syntax": "",
+      "description": "",
+      "category": "General"
+    },
+    {
+      "id": 6,
+      "command_name": "Remove-RegistryKey",
+      "version": 3,
+      "syntax": "Remove-RegistryKey [-Key] <String> [[-Name] <String>] [-SID <String>] [-ContinueOnError <Boolean>]",
+      "description": "Removes a registry key or value.",
+      "category": "Registry"
+    },
+    {
+      "id": 7,
+      "command_name": "Set-RegistryKey",
+      "version": 4,
+      "syntax": "Set-RegistryKey [-Key] <String> [[-Name] <String>] [[-Value] <Object>] [-Type <String>] [-SID <String>] [-ContinueOnError <Boolean>]",
+      "description": "Sets a registry key value or creates a new registry key.",
+      "category": "Registry"
+    },
+    {
+      "id": 8,
+      "command_name": "Description",
+      "version": 4,
+      "syntax": "Remove-ADTRegistryKey [-Key] <String> [[-Name] <String>] [-SID <String>] [-ErrorAction <ActionPreference>]",
+      "description": "Removes a registry key or value.",
+      "category": "General"
+    },
+    {
+      "id": 9,
+      "command_name": "Syntax",
+      "version": 4,
+      "syntax": "Remove-ADTRegistryKey [-Key] <String> [[-Name] <String>] [-SID <String>] [-ErrorAction <ActionPreference>]",
+      "description": "",
+      "category": "General"
+    },
+    {
+      "id": 10,
+      "command_name": "Parameters",
+      "version": 4,
+      "syntax": "",
+      "description": "",
+      "category": "General"
+    },
+    {
+      "id": 11,
+      "command_name": "Example",
+      "version": 4,
+      "syntax": "",
+      "description": "",
+      "category": "General"
+    },
+    {
+      "id": 12,
+      "command_name": "Remove-RegistryKey",
+      "version": 4,
+      "syntax": "Remove-RegistryKey [-Key] <String> [[-Name] <String>] [-SID <String>] [-ContinueOnError <Boolean>]",
+      "description": "Removes a registry key or value.",
+      "category": "Registry"
+    },
+    {
+      "id": 13,
+      "command_name": "Set-ADTRegistryKey",
+      "version": 4,
+      "syntax": "Set-ADTRegistryKey [-Key] <String> [[-Name] <String>] [[-Value] <Object>] [-Type <String>] [-SID <String>] [-ErrorAction <ActionPreference>]",
+      "description": "Sets a registry key value or creates a new registry key.",
+      "category": "Registry"
+    },
+    {
+      "id": 14,
+      "command_name": "Remove-ADTRegistryKey",
+      "version": 4,
+      "syntax": "Remove-ADTRegistryKey [-Key] <String> [[-Name] <String>] [-SID <String>] [-ErrorAction <ActionPreference>]",
+      "description": "Removes a registry key or value.",
+      "category": "Registry"
+    }
+  ],
+  "parameters": [
+    {
+      "id": 1,
+      "command_id": 1,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 2,
+      "command_id": 1,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 3,
+      "command_id": 1,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 4,
+      "command_id": 1,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 5,
+      "command_id": 1,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 6,
+      "command_id": 1,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 7,
+      "command_id": 2,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 8,
+      "command_id": 2,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 9,
+      "command_id": 2,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 10,
+      "command_id": 2,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 11,
+      "command_id": 2,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 12,
+      "command_id": 2,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 13,
+      "command_id": 3,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 14,
+      "command_id": 3,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 15,
+      "command_id": 3,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 16,
+      "command_id": 3,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 17,
+      "command_id": 3,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 18,
+      "command_id": 3,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 19,
+      "command_id": 4,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 20,
+      "command_id": 4,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 21,
+      "command_id": 4,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 22,
+      "command_id": 4,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 23,
+      "command_id": 4,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 24,
+      "command_id": 4,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 25,
+      "command_id": 6,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 26,
+      "command_id": 6,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 27,
+      "command_id": 6,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 28,
+      "command_id": 6,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 29,
+      "command_id": 7,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 30,
+      "command_id": 7,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 31,
+      "command_id": 7,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 32,
+      "command_id": 7,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 33,
+      "command_id": 7,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 34,
+      "command_id": 7,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 35,
+      "command_id": 8,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 36,
+      "command_id": 8,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 37,
+      "command_id": 8,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 38,
+      "command_id": 8,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 39,
+      "command_id": 8,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 40,
+      "command_id": 8,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 41,
+      "command_id": 9,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 42,
+      "command_id": 9,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 43,
+      "command_id": 9,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 44,
+      "command_id": 9,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 45,
+      "command_id": 9,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 46,
+      "command_id": 9,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 47,
+      "command_id": 10,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 48,
+      "command_id": 10,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 49,
+      "command_id": 10,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 50,
+      "command_id": 10,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 51,
+      "command_id": 10,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 52,
+      "command_id": 10,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 53,
+      "command_id": 12,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 54,
+      "command_id": 12,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 55,
+      "command_id": 12,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 56,
+      "command_id": 12,
+      "param_name": "ContinueOnError",
+      "param_type": "Boolean",
+      "description": "Continue if an error is encountered. Default is: $true.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 57,
+      "command_id": 13,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 58,
+      "command_id": 13,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 59,
+      "command_id": 13,
+      "param_name": "Value",
+      "param_type": "Object",
+      "description": "The value data.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 60,
+      "command_id": 13,
+      "param_name": "Type",
+      "param_type": "String",
+      "description": "The type of registry value to create or set. Options: 'Binary','DWord','ExpandString','MultiString','None','QWord','String','Unknown'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 61,
+      "command_id": 13,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 62,
+      "command_id": 13,
+      "param_name": "ErrorAction",
+      "param_type": "ActionPreference",
+      "description": "Specifies how the cmdlet responds when an error occurs. Options: 'SilentlyContinue','Stop','Continue','Inquire','Ignore','Suspend'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 63,
+      "command_id": 8,
+      "param_name": "ErrorAction",
+      "param_type": "ActionPreference",
+      "description": "Specifies how the cmdlet responds when an error occurs. Options: 'SilentlyContinue','Stop','Continue','Inquire','Ignore','Suspend'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 64,
+      "command_id": 9,
+      "param_name": "ErrorAction",
+      "param_type": "ActionPreference",
+      "description": "Specifies how the cmdlet responds when an error occurs. Options: 'SilentlyContinue','Stop','Continue','Inquire','Ignore','Suspend'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 65,
+      "command_id": 10,
+      "param_name": "ErrorAction",
+      "param_type": "ActionPreference",
+      "description": "Specifies how the cmdlet responds when an error occurs. Options: 'SilentlyContinue','Stop','Continue','Inquire','Ignore','Suspend'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 66,
+      "command_id": 14,
+      "param_name": "Key",
+      "param_type": "String",
+      "description": "The registry key path.\n    This parameter is required.",
+      "is_required": 1,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 67,
+      "command_id": 14,
+      "param_name": "Name",
+      "param_type": "String",
+      "description": "The value name.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 68,
+      "command_id": 14,
+      "param_name": "SID",
+      "param_type": "String",
+      "description": "The security identifier (SID) for a user.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    },
+    {
+      "id": 69,
+      "command_id": 14,
+      "param_name": "ErrorAction",
+      "param_type": "ActionPreference",
+      "description": "Specifies how the cmdlet responds when an error occurs. Options: 'SilentlyContinue','Stop','Continue','Inquire','Ignore','Suspend'.",
+      "is_required": 0,
+      "is_critical": 0,
+      "default_value": null
+    }
+  ],
+  "v3tov4Mappings": [
+    {
+      "v3_id": 1,
+      "v3_command": "Set-RegistryKey",
+      "v4_id": 13,
+      "v4_command": "Set-ADTRegistryKey"
+    },
+    {
+      "v3_id": 2,
+      "v3_command": "Description",
+      "v4_id": null,
+      "v4_command": null
+    },
+    {
+      "v3_id": 3,
+      "v3_command": "Syntax",
+      "v4_id": null,
+      "v4_command": null
+    },
+    {
+      "v3_id": 4,
+      "v3_command": "Parameters",
+      "v4_id": null,
+      "v4_command": null
+    },
+    {
+      "v3_id": 5,
+      "v3_command": "Example",
+      "v4_id": null,
+      "v4_command": null
+    },
+    {
+      "v3_id": 6,
+      "v3_command": "Remove-RegistryKey",
+      "v4_id": 14,
+      "v4_command": "Remove-ADTRegistryKey"
+    }
+  ],
+  "criticalParams": []
+}

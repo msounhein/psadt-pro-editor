@@ -1,0 +1,21 @@
+2025-03-21 19:20:19 [INFO] Starting documentation fetch process
+2025-03-21 19:20:19 [INFO] Creating temp output directory: C:\Users\msoun\OneDrive\Documents\Code\Web\psadt-pro-ui\temp\docs
+2025-03-21 19:20:19 [INFO] Downloading repository from: https://github.com/PSAppDeployToolkit/PSAppDeployToolkit/archive/master.zip
+2025-03-21 19:21:24 [INFO] Extracting repository to: C:\Users\msoun\AppData\Local\Temp\PSADT-Docs-Temp
+2025-03-21 19:21:56 [INFO] Copying documentation files to temp location: C:\Users\msoun\OneDrive\Documents\Code\Web\psadt-pro-ui\temp\docs
+2025-03-21 19:21:57 [SUCCESS] Successfully copied 141 documentation files
+2025-03-21 19:21:57 [INFO] Running database import script
+2025-03-21 19:22:27 [SUCCESS] Successfully imported documentation to database
+2025-03-21 19:22:27 [SUCCESS] Created documentation metadata file
+2025-03-21 19:22:27 [INFO] Cleaning up temporary files
+2025-03-21 19:22:27 [SUCCESS] Documentation fetch completed successfully
+2025-03-21 20:12:32 [INFO] Starting documentation fetch process
+2025-03-21 20:12:32 [INFO] Downloading repository from: https://github.com/PSAppDeployToolkit/PSAppDeployToolkit/archive/master.zip
+2025-03-21 20:13:25 [INFO] Extracting repository to: C:\Users\msoun\AppData\Local\Temp\PSADT-Docs-Temp
+2025-03-21 20:13:58 [INFO] Copying documentation files to temp location: C:\Users\msoun\OneDrive\Documents\Code\Web\psadt-pro-ui\temp\docs
+2025-03-21 20:13:58 [SUCCESS] Successfully copied 142 documentation files
+2025-03-21 20:13:58 [INFO] Running database import script
+2025-03-21 20:14:38 [SUCCESS] Successfully imported documentation to database
+2025-03-21 20:14:38 [SUCCESS] Created documentation metadata file
+2025-03-21 20:14:38 [INFO] Cleaning up temporary files
+2025-03-21 20:14:38 [SUCCESS] Documentation fetch completed successfully

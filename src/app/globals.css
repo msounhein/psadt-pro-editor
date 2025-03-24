@@ -1,0 +1,673 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Display:wght@400;500;700&family=Google+Sans+Text:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-roboto: var(--font-roboto);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  /* Material Design elevations */
+  --md-elevation-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --md-elevation-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+  --md-elevation-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+  --md-elevation-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  --md-elevation-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.129 0.042 264.695);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.129 0.042 264.695);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.129 0.042 264.695);
+  --primary: oklch(0.208 0.042 265.755);
+  --primary-foreground: oklch(0.984 0.003 247.858);
+  --secondary: oklch(0.968 0.007 247.896);
+  --secondary-foreground: oklch(0.208 0.042 265.755);
+  --muted: oklch(0.968 0.007 247.896);
+  --muted-foreground: oklch(0.554 0.046 257.417);
+  --accent: oklch(0.968 0.007 247.896);
+  --accent-foreground: oklch(0.208 0.042 265.755);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.929 0.013 255.508);
+  --input: oklch(0.929 0.013 255.508);
+  --ring: oklch(0.704 0.04 256.788);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-google: 'Google Sans', 'Google Sans Text', 'Google Sans Display', Roboto, sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+}
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+    
+    --success: 142.1 76.2% 36.3%;
+    --success-foreground: 355.7 100% 97.3%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    
+    --success: 142.1 70.6% 45.3%;
+    --success-foreground: 144.9 80.4% 10%;
+  }
+}
+
+/* IDE Fullscreen Mode */
+.ide-fullscreen-mode header,
+.ide-fullscreen-mode aside,
+.ide-fullscreen-mode nav:not(.fullscreen-tab) {
+  display: none !important;
+}
+
+.ide-fullscreen-mode .fullscreen-editor {
+  width: 100vw !important;
+  height: 100vh !important;
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Hide the header controls in fullscreen but show on hover */
+.ide-fullscreen-mode .fullscreen-editor > div:first-child {
+  padding: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.ide-fullscreen-mode .fullscreen-editor:hover > div:first-child {
+  height: auto !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  background-color: var(--background);
+  box-shadow: var(--md-elevation-2);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  padding: 8px !important;
+}
+
+/* Center tab for exiting fullscreen */
+.ide-fullscreen-mode .fullscreen-tab {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  background-color: var(--background);
+  padding: 4px 16px;
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+  box-shadow: var(--md-elevation-2);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ide-fullscreen-mode .fullscreen-tab:hover {
+  background-color: var(--secondary);
+}
+
+/* Maximize editor space by minimizing other UI elements */
+.flex-1.flex.flex-col.h-full.w-full.overflow-hidden:not(.fullscreen-editor) > div:first-child {
+  padding: 4px 8px !important;
+}
+
+.flex-1.flex.flex-col.h-full.w-full.overflow-hidden:not(.fullscreen-editor) > div:first-child button {
+  padding: 6px 10px !important;
+}
+
+/* Custom scrollbar for code blocks */
+.font-mono::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.font-mono::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.font-mono::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-full;
+}
+
+.font-mono::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/50;
+}
+
+/* Dark mode text selection */
+.dark ::selection {
+  @apply bg-primary/30 text-foreground;
+}
+
+/* Light mode text selection */
+::selection {
+  @apply bg-primary/20 text-foreground;
+}
+
+/* Add subtle animations */
+.card {
+  @apply transition-all duration-200;
+}
+
+/* Enhanced markdown rendering styles */
+.markdown-content {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4 {
+  margin-top: 1.75em;
+  margin-bottom: 0.75em;
+  font-weight: 600;
+}
+
+.markdown-content h1:first-child,
+.markdown-content h2:first-child,
+.markdown-content h3:first-child,
+.markdown-content h4:first-child {
+  margin-top: 0;
+}
+
+.markdown-content h1 {
+  font-size: 1.75rem;
+  border-bottom: 1px solid rgba(125, 125, 125, 0.2);
+  padding-bottom: 0.3em;
+}
+
+.markdown-content h2 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid rgba(125, 125, 125, 0.1);
+  padding-bottom: 0.2em;
+}
+
+.markdown-content h3 {
+  font-size: 1.25rem;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+  list-style-position: outside;
+  margin-left: 2em;
+  margin-top: 0.75em;
+  margin-bottom: 1.25em;
+}
+
+.markdown-content ul li {
+  margin-bottom: 0.75em;
+  padding-left: 0.5em;
+}
+
+.markdown-content ul li:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content p {
+  margin-bottom: 1.25em;
+}
+
+.markdown-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #e03131;
+}
+
+.dark .markdown-content code {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ff8787;
+}
+
+.markdown-content a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.dark .markdown-content a {
+  color: #60a5fa;
+}
+
+.markdown-content pre {
+  margin-top: 0.75em;
+  margin-bottom: 1.25em;
+  padding: 1em;
+  border-radius: 0.375em;
+  overflow-x: auto;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark .markdown-content pre {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid #e5e7eb;
+  padding: 0.5em 1em;
+  margin-left: 0;
+  margin-right: 0;
+  color: #6b7280;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.dark .markdown-content blockquote {
+  border-left-color: #4b5563;
+  color: #9ca3af;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Improved list styling */
+.markdown-content ul li {
+  position: relative;
+  padding: 0.4em 0.6em;
+  border-radius: 4px;
+}
+
+.markdown-content ul li:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.dark .markdown-content ul li:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Custom cursor blink animation */
+@keyframes cursor-blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+/* Material Design Typography Classes */
+.font-roboto {
+  font-family: var(--font-roboto), system-ui, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.md-elevation-1 {
+  box-shadow: var(--md-elevation-1);
+}
+
+.md-elevation-2 {
+  box-shadow: var(--md-elevation-2);
+}
+
+.md-elevation-3 {
+  box-shadow: var(--md-elevation-3);
+}
+
+.md-elevation-4 {
+  box-shadow: var(--md-elevation-4);
+}
+
+.md-elevation-5 {
+  box-shadow: var(--md-elevation-5);
+}
+
+.dark .md-elevation-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.24), 0 1px 2px rgba(0,0,0,0.48);
+}
+
+.dark .md-elevation-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.30), 0 2px 4px rgba(0,0,0,0.24);
+}
+
+.dark .md-elevation-3 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.30), 0 3px 6px rgba(0,0,0,0.20);
+}
+
+.dark .md-elevation-4 {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.50), 0 10px 10px rgba(0,0,0,0.44);
+}
+
+.dark .md-elevation-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.60), 0 15px 12px rgba(0,0,0,0.44);
+}
+
+/* Material ripple effect */
+.md-ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.md-ripple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 20%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 1s;
+}
+
+.md-ripple:active:after {
+  transform: scale(0, 0);
+  opacity: 0.3;
+  transition: 0s;
+}
+
+.dark .md-ripple:after {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.3) 20%, transparent 10.01%);
+}
+
+/* Google Font Classes */
+.font-google {
+  font-family: var(--font-google);
+  letter-spacing: -0.01em;
+}
+
+.font-google-display {
+  font-family: 'Google Sans Display', var(--font-google);
+  letter-spacing: -0.02em;
+}
+
+/* Material Design Elevation */
+:root {
+  --md-elevation-level1: 0 1px 2px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.07);
+  --md-elevation-level2: 0 2px 4px rgba(0,0,0,0.09), 0 3px 6px rgba(0,0,0,0.06);
+  --md-elevation-level3: 0 4px 8px rgba(0,0,0,0.09), 0 6px 12px rgba(0,0,0,0.06);
+  --md-elevation-level4: 0 8px 16px rgba(0,0,0,0.07), 0 12px 24px rgba(0,0,0,0.04);
+  --md-elevation-level5: 0 16px 32px rgba(0,0,0,0.07), 0 24px 48px rgba(0,0,0,0.04);
+}
+
+.dark {
+  --md-elevation-level1: 0 1px 2px rgba(0,0,0,0.30), 0 1px 3px rgba(0,0,0,0.20);
+  --md-elevation-level2: 0 2px 4px rgba(0,0,0,0.25), 0 3px 6px rgba(0,0,0,0.20);
+  --md-elevation-level3: 0 4px 8px rgba(0,0,0,0.25), 0 6px 12px rgba(0,0,0,0.20);
+  --md-elevation-level4: 0 8px 16px rgba(0,0,0,0.22), 0 12px 24px rgba(0,0,0,0.18);
+  --md-elevation-level5: 0 16px 32px rgba(0,0,0,0.22), 0 24px 48px rgba(0,0,0,0.18);
+}
+
+.md-elevation-1 {
+  box-shadow: var(--md-elevation-level1);
+}
+
+.md-elevation-2 {
+  box-shadow: var(--md-elevation-level2);
+}
+
+.md-elevation-3 {
+  box-shadow: var(--md-elevation-level3);
+}
+
+.md-elevation-4 {
+  box-shadow: var(--md-elevation-level4);
+}
+
+.md-elevation-5 {
+  box-shadow: var(--md-elevation-level5);
+}
+
+/* Hover elevation classes */
+.hover\:md-elevation-1:hover {
+  box-shadow: var(--md-elevation-level1);
+}
+
+.hover\:md-elevation-2:hover {
+  box-shadow: var(--md-elevation-level2);
+}
+
+.hover\:md-elevation-3:hover {
+  box-shadow: var(--md-elevation-level3);
+}
+
+.hover\:md-elevation-4:hover {
+  box-shadow: var(--md-elevation-level4);
+}
+
+.hover\:md-elevation-5:hover {
+  box-shadow: var(--md-elevation-level5);
+}
+
+/* Material Design Ripple Effect */
+.md-ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.md-ripple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle, currentColor 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(10);
+  transition: transform .5s, opacity 0.8s;
+}
+
+.md-ripple:active:after {
+  transform: scale(0);
+  opacity: 0.12;
+  transition: 0s;
+}
+
+.dark .md-ripple:active:after {
+  opacity: 0.2;
+}
+
+/* Editor styles */
+.editor-container {
+  background-color: #0e1116;
+  color: #e6edf3;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.editor-content {
+  background-color: #0d1117;
+  border-radius: 0.75rem;
+  padding: 1.25em;
+  font-size: 13px;
+  line-height: 1.5;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  letter-spacing: 0.01em;
+}
+
+.editor-header {
+  background-color: #161b22;
+  border-bottom: 1px solid #30363d;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  height: 56px;
+}
+
+.editor-footer {
+  background-color: #161b22;
+  border-top: 1px solid #30363d;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  height: 42px;
+  padding: 0.75rem 1rem;
+  color: #e6edf3;
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+}
