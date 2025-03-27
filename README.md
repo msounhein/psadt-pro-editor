@@ -17,6 +17,20 @@ A modern web interface for creating and managing PowerShell App Deployment Toolk
 - **Database Persistence**: Track templates and their associated metadata
 - **Fallback Mechanism**: Graceful handling when database operations fail
 - **Version Tracking**: Display and track PSADT versions for all templates
+- **Search**: Search commands, examples, and documentation using semantic search
+- **Documentation**: Browse and search PSADT documentation
+- **Code Editor**: Edit deployment scripts with syntax highlighting and auto-completion
+
+## Recent Updates
+
+### Search Functionality Fixes
+
+- **Command Name Display**: Fixed issues with command names not displaying properly in search results
+- **Collection Selection**: Implemented automatic validation to ensure v4 collections are prioritized
+- **Collection Fallback**: Added fallback mechanism to upgrade older collections to v4 equivalents
+- **Result Transformation**: Improved data extraction from Qdrant search results to ensure proper display
+
+The search functionality now properly handles results from different collections and correctly displays command names, descriptions, and syntax information.
 
 ## Tech Stack
 
@@ -392,3 +406,63 @@ DATABASE_URL="file:./prisma/dev.db"
 NEXTAUTH_SECRET="your-secret-key"
 NEXTAUTH_URL="http://localhost:3000"
 ```
+
+## Embedding Service Implementation
+
+### Transformer-Based Embeddings
+
+This project uses a transformer-based embedding model for generating vector embeddings of documentation content for semantic search. The implementation uses the Hugging Face model `sentence-transformers/all-MiniLM-L6-v2` via the @xenova/transformers library.
+
+Key features:
+1. Real transformer-based embeddings with 384 dimensions
+2. Hard-fail approach if model cannot be loaded (no fallbacks to inferior methods)
+3. Clear error messages and detailed logging
+4. Efficient model caching to improve performance
+
+### Model Details
+
+- Model: `sentence-transformers/all-MiniLM-L6-v2`
+- Implementation: JavaScript using @xenova/transformers
+- Vector Dimensions: 384
+- Distance Metric: Cosine similarity
+- Model Location: `./Qdrant/models/`
+
+### Key Files
+
+- `src/lib/embedding-service.js`: Main service for generating embeddings via transformer model
+- `src/lib/docs-processor-helpers.js`: Helper functions that interface with the embedding service
+- `src/lib/docs-processor.js`: Documentation processor that uses embeddings for vector storage
+
+### Test Scripts
+
+- `scripts/check-embedding.js`: Verifies the embedding service is working correctly
+- `scripts/test-sync.js`: Tests the document synchronization process with real embeddings
+- `scripts/build-embed.js`: Helps build embedding service dependencies
+
+### Production Requirements
+
+For production use, ensure:
+
+1. The transformer model files are properly installed in the `./Qdrant/models/` directory
+2. The @xenova/transformers library is installed
+3. The system has sufficient memory and resources to run the model (minimum 2GB RAM recommended)
+
+The system will not fall back to inferior methods if the transformer model fails to load, ensuring consistent search quality.
+
+## Documentation Search
+
+The application now includes a dedicated Documentation Search tab that allows users to search specifically for documentation content. This feature uses the same semantic search technology as the Command Search but focuses on finding relevant documentation sections.
+
+### Key Features
+
+- **Collection Selection**: Choose from different documentation collections including official PSADT docs and test collections.
+- **Parameter Documentation**: Automatically generates documentation entries for each parameter when no explicit documentation is available.
+- **Content Chunking**: Large documentation sections are automatically split into manageable chunks to improve search relevance and precision.
+- **Document Types**: Search results show the type of documentation (parameter, section, etc.) and indicate when a result is part of a larger chunked document.
+
+### Implementation Details
+
+- Documentation sections longer than 1500 characters are split into smaller semantic chunks.
+- Each chunk maintains context with section headers and related information.
+- Chunks are labeled with indices (Part 1, Part 2, etc.) to maintain reading order.
+- Parameters are stored as individual documentation entries for targeted parameter searches.
