@@ -39,10 +39,30 @@ The `EditorContext` is central to the editor's functionality:
 
 ## Editor Component (`CodeEditor`)
 
--   Likely located at `src/app/new-editor/components/editor/CodeEditor.tsx`.
+-   Located at `src/app/new-editor/components/editor/CodeEditor.tsx`.
 -   Uses `@monaco-editor/react` to render the editor.
--   Receives `fileContent` and potentially `language` information from `EditorContext` (or determines language based on `currentFile`).
--   May include features like theme switching, syntax highlighting configuration, and potentially code completion integration in the future.
+-   Receives `fileContent` from `EditorContext` and determines language based on `currentFile`.
+-   Includes features like theme switching and syntax highlighting configuration.
+-   Integrates Qdrant-powered code completions for PowerShell.
+
+## Code Completions (PowerShell)
+
+The editor provides intelligent code completions for PowerShell scripts, leveraging the Qdrant vector database:
+
+-   **Triggering:** Completions are triggered automatically as you type, especially after characters like `-` or `$`.
+-   **Backend API:** The editor calls the `/api/editor/completions` endpoint.
+    -   Handler: `src/app/api/editor/completions/route.ts`
+-   **Search Mechanism:**
+    -   The API generates a vector embedding for the current code context using the `sentence-transformers/all-MiniLM-L6-v2` model via `embedding-service.ts`.
+    -   It performs a vector search (`searchWithEmbedding`) against the `psadt_commands_v4`, `psadt_commands_v4_examples`, and `psadt_commands_v4_docs` Qdrant collections using the `PsadtQdrantDb` helper.
+    -   Results are combined and deduplicated.
+-   **Formatting & Sorting:**
+    -   Results are formatted into Monaco completion items.
+    -   Labels are derived from fields like `commandName`, `title`, or `section`. Parameter labels are extracted correctly.
+    -   Suggestions are sorted based on type (commands/functions first), then label match (exact, prefix), then Qdrant relevance score.
+-   **Frontend Integration:**
+    -   The `CodeEditor.tsx` component registers a `CompletionItemProvider` with Monaco.
+    -   This provider fetches suggestions from the API and supplies them to the editor UI.
 
 ## API Endpoints
 
