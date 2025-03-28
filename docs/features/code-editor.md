@@ -1,113 +1,58 @@
-# Code Editor Implementation
+# Code Editor (New Implementation)
 
 ## Overview
 
-The PSADT Pro UI includes an integrated code editor for modifying template files. Built using Monaco Editor (the same editor that powers VS Code), it provides a powerful interface for editing PowerShell scripts and other files within templates.
+The PSADT Pro UI includes an integrated code editor, accessible via the `/new-editor` route, for viewing and modifying template files. Built using Monaco Editor (the same editor that powers VS Code), it provides a powerful interface for editing PowerShell scripts and other files within templates, managed through a context-based state system.
 
 ## Core Components
 
-### Monaco Editor Integration
+The `/new-editor` feature is structured around the following key components:
 
-The editor uses `@monaco-editor/react` for integrating the Monaco Editor into the React application. Key features include:
+-   **Route Entry Point:** `src/app/new-editor/page.tsx`
+    -   Sets up the main layout and wraps components in the `EditorProvider`.
+-   **State Management:** `src/app/new-editor/contexts/EditorContext.tsx`
+    -   Provides context (`EditorContext`) for managing editor state, including selected templates, file lists, file content, loading status, and errors.
+    -   Handles fetching templates, file lists, and file content via API calls.
+-   **UI Components:**
+    -   `src/app/new-editor/components/Sidebar.tsx`: Displays the list of templates and the file tree for the selected template. Uses `EditorContext` to get data and trigger actions (like selecting a template or file).
+    -   `src/app/new-editor/components/MainEditor.tsx`: Displays the header (showing selected template/file) and renders the actual code editor component. Consumes `EditorContext` for state.
+    -   `src/app/new-editor/components/editor/CodeEditor.tsx`: (Assumed location) The wrapper component around the Monaco Editor instance, responsible for displaying `fileContent` from the context and handling editor-specific configurations.
 
-- Syntax highlighting for multiple languages
-- Code completion
-- Error checking
-- Multiple themes
-- Line numbers and gutter indicators
+## State Management (`EditorContext`)
 
-### File Explorer
+The `EditorContext` is central to the editor's functionality:
 
-The file explorer component allows users to:
+-   **`templates` / `selectedTemplateId`:** Manages the list of available templates and which one is currently selected. Templates are loaded via `/api/templates`.
+-   **`files` / `currentFile`:** Holds the list of files for the selected template and the path of the currently open file. The file list is loaded via `/api/templates/[templateId]/files`.
+-   **`fileContent`:** Stores the content of the `currentFile`. Content is loaded via `/api/templates/[templateId]/files/content?filepath=[...]`.
+-   **`expandedFolders`:** Tracks the expansion state of directories in the file tree.
+-   **`isLoading` / `error`:** Provides UI feedback during asynchronous operations.
 
-- Navigate template file structure
-- Expand/collapse directories
-- Select files for editing
-- See file types with appropriate icons
+## File Loading Workflow
 
-### Key Files
+1.  **Template Loading:** `EditorContext` fetches all user templates from `/api/templates` on initial load. The first valid template is usually selected automatically.
+2.  **File List Loading:** When `selectedTemplateId` changes, `EditorContext` fetches the file list for that template from `/api/templates/[templateId]/files`.
+    -   The API route (`.../files/route.ts`) reads the template's `storagePath` (or `metadata.storagePath`) from the database, resolves the absolute path (prepending `storage/`), and recursively lists files within that directory.
+3.  **File Content Loading:** When `currentFile` changes (and it's not a directory), `EditorContext` fetches its content from `/api/templates/[templateId]/files/content?filepath=[...]`.
+    -   The API route (`.../files/content/route.ts`) reads the template's path, resolves the absolute path, reads the file content (handling binary vs. text), and returns it. If the path doesn't exist, it returns a 404.
+4.  **Display:** The `CodeEditor` component receives the `fileContent` from the context and displays it.
 
-- `src/components/ide/simple-editor.tsx`: Main editor component
-- `src/components/ide/components/MonacoEditor.tsx`: Monaco editor wrapper
-- `src/components/ide/components/FileTree.tsx`: File explorer component
-- `src/components/ide/components/utils.ts`: Utility functions for file operations
-- `src/components/ide/components/ThemeSwitcher.tsx`: Editor theme selection
+## Editor Component (`CodeEditor`)
 
-## Implementation Details
+-   Likely located at `src/app/new-editor/components/editor/CodeEditor.tsx`.
+-   Uses `@monaco-editor/react` to render the editor.
+-   Receives `fileContent` and potentially `language` information from `EditorContext` (or determines language based on `currentFile`).
+-   May include features like theme switching, syntax highlighting configuration, and potentially code completion integration in the future.
 
-### File Loading
+## API Endpoints
 
-Files are loaded through these steps:
+The editor relies on the following backend API routes:
 
-1. The component fetches a list of files from the API endpoint
-2. The file list is processed to create a hierarchical structure
-3. Directories are identified and properly formatted (with trailing slashes)
-4. When a file is selected, its content is fetched from the API
-5. Binary files are detected and handled differently from text files
+-   **`GET /api/templates`:** Lists available templates for the user.
+    -   Handler: `src/app/api/templates/route.ts`
+-   **`GET /api/templates/[templateId]/files`:** Lists files within a specific template's storage directory.
+    -   Handler: `src/app/api/templates/[templateId]/files/route.ts`
+-   **`GET /api/templates/[templateId]/files/content?filepath=[...]`:** Gets the content of a specific file or lists items in a directory within a template.
+    -   Handler: `src/app/api/templates/[templateId]/files/content/route.ts`
 
-### Directory Structure
-
-The file explorer organizes files into a tree structure:
-
-- The `organizeFiles` function in `utils.ts` transforms the flat file list into a hierarchical structure
-- Directories are displayed with expand/collapse controls
-- Files are displayed with icons based on their type
-
-### User Interface Features
-
-- Directory view: When selecting a directory, displays a folder icon
-- Loading indicators: Shows loading spinners when fetching files or content
-- Theme selection: Allows switching between light and dark editor themes
-- Status indicators: Displays the currently selected file
-
-### State Management
-
-The editor uses React's state management to track:
-
-- The list of files in the template
-- The currently selected file
-- The current content of the selected file
-- Which directories are expanded or collapsed
-- Loading states for various operations
-
-### Performance Optimizations
-
-Several optimizations are implemented:
-
-- `useCallback` for event handlers to prevent unnecessary re-renders
-- Reference tracking to avoid infinite update loops
-- Separating file fetching from file selection logic
-- Proper dependency arrays in `useEffect` hooks
-- Controlled re-rendering to avoid visual flickering
-
-### Directory Collapse Behavior
-
-By default, all directories start collapsed. Users can click on directories to expand them and view their contents. This behavior is controlled by:
-
-- The `expandedFolders` state set, which tracks which directories are expanded
-- The `handleFolderToggle` function that toggles expansion state
-- Default initialization with an empty set to ensure all folders start collapsed
-
-## Usage
-
-The IDE is typically accessed through:
-
-1. Template detail page → "Open in IDE" button
-2. Direct URL access: `/ide/[template-id]`
-
-When opened, the IDE:
-
-1. Loads the template information
-2. Fetches the list of files
-3. Organizes them into a hierarchical structure
-4. Displays the file tree with all directories collapsed
-5. Auto-selects the first file for editing (if available)
-
-## Technical Notes
-
-- The editor supports multiple file types with appropriate syntax highlighting
-- PowerShell files receive special treatment with dedicated syntax highlighting
-- The editor handles file path differences between web URLs and filesystem paths
-- File content is loaded on-demand to improve performance with large templates
-
-This implementation provides a robust editing experience similar to dedicated code editors while maintaining full integration with the template management system.
+These routes fetch the template's base path (`storagePath` or `metadata.storagePath`) from the database and interact with the file system located under the project's `storage/` directory.
