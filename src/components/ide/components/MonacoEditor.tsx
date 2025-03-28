@@ -128,8 +128,85 @@ export const MonacoEditor: React.FC<MonacoEditorProps> = ({
         onChange(editor.getValue());
       }
     });
+
+    // --- Add Completion Provider ---
+    const completionProvider = monacoInstance.languages.registerCompletionItemProvider('powershell', {
+      // Trigger on common PowerShell characters and letters
+      triggerCharacters: ['-', '$', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
+      provideCompletionItems: async (model, position) => {
+        const textUntilPosition = model.getValueInRange({
+          startLineNumber: position.lineNumber,
+          startColumn: 1,
+          endLineNumber: position.lineNumber,
+          endColumn: position.column,
+        });
+
+        // Basic check: Don't trigger immediately after a space if the previous char wasn't a trigger like '-'
+        const lastChar = textUntilPosition.charAt(textUntilPosition.length - 2);
+        if (textUntilPosition.endsWith(' ') && lastChar !== '-') {
+           // console.log("Skipping completion after space (unless after hyphen)");
+           // return { suggestions: [] }; // Optionally disable suggestions after space
+        }
+
+        // Get the word being typed to determine the replacement range
+        const wordInfo = model.getWordUntilPosition(position);
+        const range = {
+          startLineNumber: position.lineNumber,
+          endLineNumber: position.lineNumber,
+          startColumn: wordInfo.startColumn,
+          endColumn: wordInfo.endColumn,
+        };
+
+        console.log(`Completion triggered. Context: "${textUntilPosition}"`);
+
+        try {
+          const response = await fetch('/api/ide/completions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              context: textUntilPosition, // Send text up to cursor
+              language: model.getLanguageId(),
+            }),
+          });
+
+          if (!response.ok) {
+            console.error("Completion API error:", response.status, await response.text());
+            return { suggestions: [] };
+          }
+
+          const apiResult = await response.json();
+
+          if (!apiResult || !Array.isArray(apiResult.suggestions)) {
+             console.error("Invalid completion API response format:", apiResult);
+             return { suggestions: [] };
+          }
+
+          // Add the mandatory 'range' property to each suggestion
+          const suggestionsWithRange = apiResult.suggestions.map((suggestion: any) => ({
+            ...suggestion,
+            range: range, // Tell Monaco what text to replace
+            // Ensure kind is a valid enum value (provide default if necessary)
+            kind: suggestion.kind ?? monaco.languages.CompletionItemKind.Text,
+          }));
+          
+          console.log(`Received ${suggestionsWithRange.length} suggestions`);
+
+          return { suggestions: suggestionsWithRange };
+
+        } catch (error) {
+          console.error("Error fetching completions:", error);
+          return { suggestions: [] }; // Return empty suggestions on error
+        }
+      },
+    });
+    // --- End Completion Provider ---
     
     setIsEditorReady(true);
+
+    // Clean up the provider when the component unmounts or editor remounts
+    return () => {
+      completionProvider.dispose();
+    };
   };
 
   // Update theme when it changes
